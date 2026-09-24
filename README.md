@@ -2,7 +2,8 @@
 
 My personal portfolio site. Built with React, React Router and Vite.
 
-Repository: https://github.com/unaltolga/react-portfolio
+- Live site: https://react-portfolio-tau-fawn-59.vercel.app
+- Repository: https://github.com/unaltolga/react-portfolio
 
 ## Running it
 
@@ -66,7 +67,6 @@ The home page then shows those values back to them.
 
 - Replace the placeholder projects and references with real ones.
 - Swap the resume PDF in `public/resume/` for the real one.
-- Deploy and add the live URL here.
 
 ## Deploying
 
