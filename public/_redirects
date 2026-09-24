@@ -1,0 +1,4 @@
+# Netlify single-page application fallback.
+# Without this rule, opening /projects directly returns a 404 because no such
+# file exists on disk: every route is rendered by React on the client.
+/*    /index.html   200
