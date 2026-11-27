@@ -11,6 +11,7 @@ import Contact from './pages/Contact.jsx';
 import NotFound from './pages/NotFound.jsx';
 import Dashboard from './pages/admin/Dashboard.jsx';
 import ResourceList from './pages/admin/ResourceList.jsx';
+import ResourceForm from './pages/admin/ResourceForm.jsx';
 import { resourceKeys } from './admin/resources.js';
 
 function App() {
@@ -42,13 +43,16 @@ function App() {
           <Route path="/references" element={<References />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/admin" element={<Dashboard />} />
-          {/* /admin/projects, /admin/services, /admin/references, /admin/users */}
+          {/* For each of projects, services, references and users:
+              /admin/projects           list and delete
+              /admin/projects/new       add form
+              /admin/projects/:id/edit  edit form */}
           {resourceKeys.map((resource) => (
-            <Route
-              key={resource}
-              path={`/admin/${resource}`}
-              element={<ResourceList resource={resource} />}
-            />
+            <Route key={resource} path={`/admin/${resource}`}>
+              <Route index element={<ResourceList resource={resource} />} />
+              <Route path="new" element={<ResourceForm key="new" resource={resource} />} />
+              <Route path=":id/edit" element={<ResourceForm key="edit" resource={resource} />} />
+            </Route>
           ))}
           <Route path="*" element={<NotFound />} />
         </Routes>
