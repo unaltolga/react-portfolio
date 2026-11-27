@@ -10,6 +10,8 @@ import References from './pages/References.jsx';
 import Contact from './pages/Contact.jsx';
 import NotFound from './pages/NotFound.jsx';
 import Dashboard from './pages/admin/Dashboard.jsx';
+import ResourceList from './pages/admin/ResourceList.jsx';
+import { resourceKeys } from './admin/resources.js';
 
 function App() {
   const location = useLocation();
@@ -40,6 +42,14 @@ function App() {
           <Route path="/references" element={<References />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/admin" element={<Dashboard />} />
+          {/* /admin/projects, /admin/services, /admin/references, /admin/users */}
+          {resourceKeys.map((resource) => (
+            <Route
+              key={resource}
+              path={`/admin/${resource}`}
+              element={<ResourceList resource={resource} />}
+            />
+          ))}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </ErrorBoundary>
