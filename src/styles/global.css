@@ -1079,3 +1079,42 @@ textarea.error {
   font-size: 0.8rem;
   color: var(--faint);
 }
+
+/* The calendar icon of the date field follows the dark theme. */
+input[type='date'] {
+  color-scheme: dark;
+}
+
+/* On narrow screens each table row becomes a block, so the Edit and Delete
+   buttons stay visible without scrolling sideways. */
+@media (max-width: 720px) {
+  .admin-table thead {
+    display: none;
+  }
+
+  .admin-table tr {
+    display: block;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .admin-table tbody tr:last-child {
+    border-bottom: 0;
+  }
+
+  .admin-table th,
+  .admin-table td {
+    display: block;
+    padding: 4px 18px;
+    border-bottom: 0;
+  }
+
+  .admin-table .actions {
+    padding-top: 12px;
+    text-align: left;
+  }
+
+  .confirm {
+    justify-content: flex-start;
+  }
+}
