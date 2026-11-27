@@ -1,36 +1,43 @@
-import projects from '../data/projects.js';
+import { useList } from '../hooks/useList.js';
+import LoadStatus from '../components/LoadStatus.jsx';
+import { formatMonthYear } from '../utils/dates.js';
 
 function Projects() {
+  // The projects come from the database through the backend API.
+  const { status, items: projects, error, reload } = useList('projects');
+
   return (
     <div className="page">
       <section className="section">
         <p className="eyebrow">Projects</p>
         <h1>Selected work</h1>
         <p className="lead">
-          Projects from the last two years. Each card shows my role, the stack and the delivery
-          date.
+          Projects from the last two years, with a short description and the completion date.
         </p>
 
-        <div className="grid">
-          {projects.map((project) => (
-            <article key={project.id} className="card media-card">
-              <img src={project.image} alt={project.imageAlt} />
+        <LoadStatus status={status} error={error} onRetry={reload} what="projects" />
 
-              <div className="card-body">
-                <p className="meta">Completed: {project.completionDate}</p>
-                <h2>{project.title}</h2>
-                <p>{project.description}</p>
-                <p className="meta">Role: {project.role}</p>
+        {status === 'ready' && projects.length === 0 && (
+          <p className="status-note">No projects have been added yet.</p>
+        )}
 
-                <ul className="tags">
-                  {project.stack.map((tech) => (
-                    <li key={tech}>{tech}</li>
-                  ))}
-                </ul>
-              </div>
-            </article>
-          ))}
-        </div>
+        {status === 'ready' && projects.length > 0 && (
+          <div className="grid">
+            {projects.map((project) => (
+              <article key={project.id} className="card media-card">
+                {project.image && <img src={project.image} alt={project.title} />}
+
+                <div className="card-body">
+                  {project.completion && (
+                    <p className="meta">Completed: {formatMonthYear(project.completion)}</p>
+                  )}
+                  <h2>{project.title}</h2>
+                  <p>{project.description}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
       </section>
     </div>
   );

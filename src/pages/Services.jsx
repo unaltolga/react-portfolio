@@ -1,34 +1,33 @@
-import services from '../data/services.js';
+import { useList } from '../hooks/useList.js';
+import LoadStatus from '../components/LoadStatus.jsx';
 
 function Services() {
+  // The services come from the database through the backend API.
+  const { status, items: services, error, reload } = useList('services');
+
   return (
     <div className="page">
       <section className="section">
         <p className="eyebrow">Services</p>
         <h1>How I can help</h1>
-        <p className="lead">
-          Solutions shaped around your product goals. Each one lists what is included.
-        </p>
+        <p className="lead">Solutions shaped around your product goals.</p>
 
-        <div className="grid">
-          {services.map((service) => (
-            <article key={service.id} className="card media-card">
-              <img src={service.image} alt={service.imageAlt} />
+        <LoadStatus status={status} error={error} onRetry={reload} what="services" />
 
-              <div className="card-body">
+        {status === 'ready' && services.length === 0 && (
+          <p className="status-note">No services have been added yet.</p>
+        )}
+
+        {status === 'ready' && services.length > 0 && (
+          <div className="grid">
+            {services.map((service) => (
+              <article key={service.id} className="card">
                 <h2>{service.title}</h2>
                 <p>{service.description}</p>
-
-                <p className="meta">Deliverables</p>
-                <ul className="list">
-                  {service.deliverables.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            </article>
-          ))}
-        </div>
+              </article>
+            ))}
+          </div>
+        )}
       </section>
 
       <section className="section">

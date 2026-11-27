@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import projects from '../data/projects.js';
+import { useList } from '../hooks/useList.js';
+import { formatMonthYear } from '../utils/dates.js';
 
 const steps = [
   {
@@ -20,7 +21,9 @@ const steps = [
 ];
 
 function Home({ message, onClose }) {
-  const featured = projects[0];
+  // The featured project is the first project stored in the database.
+  const { status, items: projects } = useList('projects');
+  const featured = status === 'ready' ? projects[0] : undefined;
 
   return (
     <div className="page">
@@ -92,32 +95,25 @@ function Home({ message, onClose }) {
         />
       </section>
 
-      <section className="section">
-        <p className="eyebrow">Featured project</p>
-        <h2>{featured.title}</h2>
-        <p className="lead">{featured.description}</p>
+      {featured && (
+        <section className="section">
+          <p className="eyebrow">Featured project</p>
+          <h2>{featured.title}</h2>
 
-        <div className="featured">
-          <img src={featured.image} alt={featured.imageAlt} />
-          <div>
-            <p className="meta">
-              Completed: {featured.completionDate} &middot; Role: {featured.role}
-            </p>
-            <p>
-              I worked with the design team on a modular component library and theming setup, with
-              dark and light modes and measurable performance improvements.
-            </p>
-            <ul className="tags">
-              {featured.stack.map((tech) => (
-                <li key={tech}>{tech}</li>
-              ))}
-            </ul>
-            <Link className="button ghost" to="/projects">
-              See all projects
-            </Link>
+          <div className="featured">
+            {featured.image && <img src={featured.image} alt={featured.title} />}
+            <div>
+              {featured.completion && (
+                <p className="meta">Completed: {formatMonthYear(featured.completion)}</p>
+              )}
+              <p>{featured.description}</p>
+              <Link className="button ghost" to="/projects">
+                See all projects
+              </Link>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <section className="section">
         <p className="eyebrow">Three steps to value</p>

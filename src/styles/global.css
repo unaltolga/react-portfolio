@@ -918,3 +918,24 @@ textarea.error {
     padding: 22px;
   }
 }
+
+/* Loading, empty and error messages for data that comes from the backend */
+
+.status-note {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 16px 20px;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  color: var(--muted);
+}
+
+.status-note.error {
+  border-style: solid;
+  border-color: rgba(248, 113, 113, 0.4);
+  background: rgba(248, 113, 113, 0.08);
+  color: var(--text);
+}
