@@ -7,7 +7,8 @@ const links = [
   { to: '/projects', label: 'Projects' },
   { to: '/services', label: 'Services' },
   { to: '/references', label: 'References' },
-  { to: '/contact', label: 'Contact' }
+  { to: '/contact', label: 'Contact' },
+  { to: '/admin', label: 'Admin' }
 ];
 
 function Navbar() {

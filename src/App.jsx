@@ -9,6 +9,7 @@ import Services from './pages/Services.jsx';
 import References from './pages/References.jsx';
 import Contact from './pages/Contact.jsx';
 import NotFound from './pages/NotFound.jsx';
+import Dashboard from './pages/admin/Dashboard.jsx';
 
 function App() {
   const location = useLocation();
@@ -38,6 +39,7 @@ function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/references" element={<References />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/admin" element={<Dashboard />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </ErrorBoundary>
